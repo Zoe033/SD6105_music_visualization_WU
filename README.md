@@ -21,7 +21,7 @@ A live, interactive version of the static charts (Acts 1, 3, and 4) is hosted on
 
 This project is structured as a four-act narrative, each answering a key question about the evolution of music.
 
-### 🎬 Act 1: The Empire of Genres (Time)
+### **[🎬 Act 1: The Empire of Genres (Time)](https://zoe033.github.io/SD6105_music_visualization_WU/docs/genre_trends_stacked.html)**
 * **Chart:** Small Multiples Grid of Line Charts
 * **Question:** How has the popularity of major music genres changed over the last 60 years?
 * **Insight:** This grid clearly shows the decline of Rock, the steady reign of Pop, and the dramatic, unstoppable rise of Hip Hop since the late 1990s. The linked hover-state allows for precise cross-genre comparison.
