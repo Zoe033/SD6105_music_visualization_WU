@@ -22,21 +22,21 @@ A live, interactive version of the static charts (Acts 1, 3, and 4) is hosted on
 This project is structured as a four-act narrative, each answering a key question about the evolution of music.
 
 ### **[🎬 Act 1: The Empire of Genres (Time)](https://zoe033.github.io/SD6105_music_visualization_WU/docs/genre_trends_stacked.html)**
-* **Chart:** Small Multiples Grid of Line Charts
-* **Question:** How has the popularity of major music genres changed over the last 60 years?
+* **Chart:** stack chart
+* **Question:** How has the popularity of major music genres changed over the last 100 years?
 * **Insight:** This grid clearly shows the decline of Rock, the steady reign of Pop, and the dramatic, unstoppable rise of Hip Hop since the late 1990s. The linked hover-state allows for precise cross-genre comparison.
 
-### 🎬 Act 2: The Global Fingerprint (Space)
+### **[🎬 Act 2: The Global Fingerprint (Space)](https://zoe033.github.io/SD6105_music_visualization_WU/docs/top50_music_dashboard_standalone.html)**
 * **Chart:** Interactive Plotly Dash Dashboard
 * **Question:** In our globalized world, are we all listening to the same music?
 * **Insight:** By creating a click-to-update dashboard, we avoid a cluttered map. We see a "Global Average" dominated by Pop and Hip Hop, but can instantly discover the unique "local fingerprint" of any country (e.g., J-Pop in Japan, Latin music in Colombia).
 
-### 🎬 Act 3: The 'Gene' of a Hit Song (The DNA)
+### **[🎬 Act 3: The 'Gene' of a Hit Song (The DNA)](https://zoe033.github.io/SD6105_music_visualization_WU/docs/hit_song_formula_heatmap.html)**
 * **Chart:** Faceted Correlation Heatmap
 * **Question:** Has the "formula" for a hit song changed over time?
 * **Insight:** Yes. This heatmap proves that the "genes" of a hit song have evolved. In the 1970s, audio features had weak links to popularity. In the modern era, `Loudness` and `Danceability` show a strong, clear correlation with a song's success.
 
-### 🎬 Act 4: The 'Universe' of Music (AI's View)
+### **[🎬 Act 4: The 'Universe' of Music (AI's View)](https://zoe033.github.io/SD6105_music_visualization_WU/docs/music_universe_named_clusters.html)**
 * **Chart:** AI-Named Interactive Scatter Plot
 * **Question:** If we ignore human-defined genres, how would an AI categorize music?
 * **Insight:** By running a K-Means clustering algorithm, we discover distinct "music galaxies." To make this understandable, we profiled each cluster and gave it a descriptive name. The chart reveals a clear separation between, for example, the "High-Acousticness Cluster" and the "High-Energy/Dance Cluster."
