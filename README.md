@@ -9,11 +9,10 @@ This repository contains all source code, datasets, and generated outputs for th
 
 ### 🚀 Live Interactive Demo
 
-A live, interactive version of the static charts (Acts 1, 3, and 4) is hosted on GitHub Pages:
+A live, interactive version of the charts (Acts 1, 2, 3, and 4) is hosted on GitHub Pages:
 
 **[https://Zoe033.github.io/SD6105_music_visualization_WU/](https://Zoe033.github.io/SD6105_music_visualization_WU/)**
 
-*(Note: Act 2 is a Plotly Dash application and must be run locally. See instructions below.)*
 
 ---
 
@@ -77,7 +76,7 @@ pip install -r requirements.txt
 
 The pre-generated `.html` files are located in the `/output/html_charts/` folder (and also in `/docs/` for the live demo). You can simply double-click any of them to open them in your local browser.
 
-#### Act 2 (Interactive Dash App)
+#### Act 2 (Interactive Dashboard)
 
 This chart is a web application and **must be run locally**.
 
@@ -90,6 +89,8 @@ python act_2_global_dashboard.py
 ```
 
 After running, open your web browser and go to **`http://127.0.0.1:8050/`** to see the interactive dashboard.
+
+*(Note that Act 2 is related to the 'top50_music_dashboard_standalone.html', which is seperated from your own web browser.)*
 
 -----
 
