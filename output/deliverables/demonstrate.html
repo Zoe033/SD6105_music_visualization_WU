@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sonic Zeitgeist: A Visual Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #F9FAFB; /* text-gray-50 */
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+            transform: scale(0.95);
+            transition: all 0.6s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+        }
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        #prevBtn {
+            right: 6rem;
+        }
+        #nextBtn {
+            right: 2rem;
+        }
+        .slide-counter {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 2rem;
+            color: #9CA3AF; /* text-gray-400 */
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+        .placeholder {
+            border: 2px dashed #4B5563; /* border-gray-600 */
+            border-radius: 0.75rem; /* rounded-xl */
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        /* Gemini Feature Styles */
+        .gemini-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gemini-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+        }
+        #geminiModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        #geminiModal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937; /* bg-gray-800 */
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        #geminiModal.show .modal-content {
+             transform: scale(1);
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .loader {
+            border: 4px solid #4b5563;
+            border-top: 4px solid #ec4899;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Slide 1: Title Slide -->
+    <div id="slide-1" class="slide active text-center">
+        <div class="slide-content">
+            <h1 class="text-6xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">The Sonic Zeitgeist</h1>
+            <h2 class="mt-4 text-3xl md:text-4xl font-bold text-gray-200">A Visual Journey Through Music's Data</h2>
+            <p class="mt-12 text-xl text-gray-400">WU YIFEI</p>
+            <p class="text-lg text-gray-500">SD6105 Data Visualisation</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Hook (Introduction) -->
+    <div id="slide-2" class="slide">
+        <div class="slide-content">
+            <h2 class="text-5xl font-bold mb-8">How has music changed?</h2>
+            <ul class="space-y-4 text-2xl text-gray-300 list-disc list-inside">
+                <li>What did "hit songs" sound like in our parents' era versus today?</li>
+                <li>In a globalized world, are we all listening to the same music?</li>
+                <li>Can we find a "formula" for a hit song, and has it evolved?</li>
+                <li class="pt-4 font-bold text-purple-400">Let's find out...</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 3: Act 1 - The Empire of Genres -->
+    <div id="slide-3" class="slide">
+        <div class="slide-content text-center">
+            <p class="text-2xl font-bold text-purple-400">Act 1</p>
+            <h2 class="text-5xl font-bold mt-2">The Empire of Genres</h2>
+            <p class="text-2xl mt-8 text-gray-300">Our first stop: <span class="font-bold text-white">TIME.</span></p>
+            <ul class="mt-8 space-y-3 text-xl text-gray-400 text-left max-w-2xl mx-auto list-disc list-inside">
+                <li>How has the musical landscape shifted over the last 100 years?</li>
+                <li>Traditional charts are crowded. I used a "Stacked Area Chart" to show the rise and fall of genres' market share over a full century.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 4: Act 1 - Key Insight -->
+    <div id="slide-4" class="slide">
+        <div class="slide-content grid md:grid-cols-2 gap-12 items-center">
+            <!-- 更新：将占位符替换为可点击的图片 -->
+            <!-- a 标签用于创建链接, href 属性是目标网址 -->
+            <a href="https://zoe033.github.io/SD6105_music_visualization_WU/docs/genre_trends_stacked.html" target="_blank" rel="noopener noreferrer" class="block w-full h-96 bg-gray-800 rounded-xl overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-purple-500">
+                <!-- img 标签用于显示图片, src 属性是图片文件的地址 -->
+                <img src="https://zoe033.github.io/SD6105_music_visualization_WU/docs/genre_trends_stacked.png" alt="示例图片" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
+            </a>
+            <div>
+                <h3 class="text-3xl font-bold mb-4">Key Insight: Act 1</h3> 
+                <ul class="space-y-4 text-lg text-gray-300">
+                    <li><strong class="text-purple-300">Century of Trends:</strong> The chart reveals a full century of genre evolution from 1923 to 2023.</li>
+                    <li><strong class="text-purple-300">Blues and Jazz Fall, while Pop Domain:</strong> some genres like Blues and Jazz have declined, while Pop has taken over the dominant position.</li>
+                    <li><strong class="text-purple-300">some Other genres:</strong> Disco, popular around 1980s; Alternative Rock, reach the peak in 2000. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Act 2 - The Global Fingerprint -->
+    <div id="slide-5" class="slide">
+        <div class="slide-content text-center">
+            <p class="text-2xl font-bold text-pink-400">Act 2</p>
+            <h2 class="text-5xl font-bold mt-2">The Global Fingerprint</h2>
+            <p class="text-2xl mt-8 text-gray-300">Our second stop: <span class="font-bold text-white">SPACE.</span></p>
+            <ul class="mt-8 space-y-3 text-xl text-gray-400 text-left max-w-2xl mx-auto list-disc list-inside">
+                <li>Are we all listening to the same thing?</li>
+                <li>To avoid a cluttered map, I created an interactive dashboard.</li>
+                <li>It defaults to the "Global Average" taste...</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 6: Act 2 - Key Insight -->
+    <div id="slide-6" class="slide">
+        <div class="slide-content grid md:grid-cols-2 gap-12 items-center">
+            <a href="https://zoe033.github.io/SD6105_music_visualization_WU/docs/top50_music_dashboard_standalone.html" target="_blank" rel="noopener noreferrer" class="block w-full h-96 bg-gray-800 rounded-xl overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-500">
+                <img src="https://zoe033.github.io/SD6105_music_visualization_WU/docs/top50_music_dashboard_standalone.png" alt="仪表板图片" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
+            </a>
+            <div>
+                <h3 class="text-3xl font-bold mb-4">Key Insight: Act 2</h3>
+                 <ul class="space-y-4 text-lg text-gray-300">
+                    <li><strong class="text-pink-300">Global Average:</strong> The default "Global Average" view shows "Pop" and "Hip Hop / Rap" as the world's most mainstream styles.</li>
+                    <li><strong class="text-pink-300">Local Power:</strong> Local tastes remain strong. Select "South Korea" and "K-Pop" dominates, nearly covering the entire chart.</li>
+                    <li><strong class="text-pink-300">Regional Identity:</strong> Similarly, selecting "Mexico" reveals "Latin" music's dominance, while "India" shows "South Asian" music's stronghold.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 7: Act 3 - The "Gene" of a Hit Song -->
+    <div id="slide-7" class="slide">
+        <div class="slide-content text-center">
+            <p class="text-2xl font-bold text-indigo-400">Act 3</p>
+            <h2 class="text-5xl font-bold mt-2">The "Gene" of a Hit Song</h2>
+            <p class="text-2xl mt-8 text-gray-300">Our third stop: <span class="font-bold text-white">THE DNA.</span></p>
+            <ul class="mt-8 space-y-3 text-xl text-gray-400 text-left max-w-3xl mx-auto list-disc list-inside">
+                <li>Why do modern songs "feel" different?</li>
+                <li>I created a "Correlation Heatmap" to find out.</li>
+                <li>This chart shows the correlation (the "link") between a song's features (like 'loudness') and its 'popularity' across different eras.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 8: Act 3 - Key Insight -->
+    <div id="slide-8" class="slide">
+        <div class="slide-content grid md:grid-cols-2 gap-12 items-center">
+            <a href="https://zoe033.github.io/SD6105_music_visualization_WU/docs/hit_song_formula_heatmap.html" target="_blank" rel="noopener noreferrer" class="block w-full h-96 bg-gray-800 rounded-xl overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500">
+                <img src="https://zoe033.github.io/SD6105_music_visualization_WU/docs/hit_song_formula_heatmap.png" alt="热力图图片" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
+            </a>
+            <div>
+                <h3 class="text-3xl font-bold mb-4">Key Insight: Act 3</h3>
+                 <ul class="space-y-4 text-lg text-gray-300">
+                    <li><strong class="text-indigo-300">Classic Era:</strong> In the 1970-1989 "Classic Era," song features showed weak correlation with popularity (light colors), indicating no fixed "hit formula."</li>
+                    <li><strong class="text-indigo-300">Transition Formula:</strong> In the 1990-2000 "Transition Era", "Loudness" shows strong positive correlation with popularity (deep red).</li>
+                    <li><strong class="text-indigo-300">Built for the Dance Floor:</strong> "Danceability" correlation also significantly increased, while "Acousticness" became strongly negative. Modern hits are "engineered" to be louder and more danceable.</li>
+                </ul>
+                <!-- Gemini Feature Added Here -->
+                <button id="hitRecipeBtn" class="gemini-btn">✨ Generate a Hit Song Recipe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Act 4 - The "Universe" of Music -->
+    <div id="slide-9" class="slide">
+        <div class="slide-content text-center">
+            <p class="text-2xl font-bold text-teal-400">Act 4</p>
+            <h2 class="text-5xl font-bold mt-2">The "Universe" of Music</h2>
+            <p class="text-2xl mt-8 text-gray-300">Our final stop: <span class="font-bold text-white">THE UNIVERSE</span> (beyond human labels).</p>
+            <ul class="mt-8 space-y-3 text-xl text-gray-400 text-left max-w-3xl mx-auto list-disc list-inside">
+                <li>What if we let AI (K-Means) categorize music, ignoring human-defined genres?</li>
+                <li>It creates a "Music Universe" of song galaxies.</li>
+                <li>But "Cluster 0" is meaningless. I made the AI name its own discoveries.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 10: Act 4 - Key Insight -->
+    <div id="slide-10" class="slide">
+        <div class="slide-content grid md:grid-cols-2 gap-12 items-center">
+            <a href="https://zoe033.github.io/SD6105_music_visualization_WU/docs/music_universe_named_clusters.html" target="_blank" rel="noopener noreferrer" class="block w-full h-96 bg-gray-800 rounded-xl overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-teal-500">
+                <img src="https://zoe033.github.io/SD6105_music_visualization_WU/docs/music_universe_named_clusters.png" alt="AI散点图图片" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
+            </a>
+            <div>
+                <h3 class="text-3xl font-bold mb-4">Key Insight: Act 4</h3>
+                <ul class="space-y-4 text-lg text-gray-300">
+                    <li><strong class="text-teal-300">AI Clustering:</strong> K-Means algorithm successfully divided 10,000 songs into 8 distinct "music galaxies" without human-defined genres.</li>
+                    <li><strong class="text-teal-300">AI Naming:</strong> Each galaxy has descriptive names generated by AI based on musical characteristics, like "High Acousticness" or "High Energy."</li>
+                    <li><strong class="text-teal-300">Clear Separation:</strong> The visualization clearly shows that quiet, acoustic galaxies are spatially separated from high-energy, high-danceability galaxies.</li>
+                </ul>
+                <!-- Gemini Feature Added Here -->
+                <button id="galaxyNameBtn" class="gemini-btn">✨ Name this AI 'Galaxy'</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Conclusion -->
+    <div id="slide-11" class="slide">
+        <div class="slide-content">
+            <h2 class="text-5xl font-bold mb-8 text-center">What We Discovered</h2>
+            <ol class="space-y-6 text-xl text-gray-300">
+                <li class="flex items-start"><span class="text-purple-400 font-bold text-2xl mr-4">1.</span> <div><strong class="text-white">Time:</strong> The empire of Rock has given way to the rise of Pop.</div></li>
+                <li class="flex items-start"><span class="text-pink-400 font-bold text-2xl mr-4">2.</span> <div><strong class="text-white">Space:</strong> Globalization is real, but local tastes are stronger than ever.</div></li>
+                <li class="flex items-start"><span class="text-indigo-400 font-bold text-2xl mr-4">3.</span> <div><strong class="text-white">Gene:</strong> The "hit song formula" has evolved to favor loudness and danceability.</div></li>
+                <li class="flex items-start"><span class="text-teal-400 font-bold text-2xl mr-4">4.</span> <div><strong class="text-white">Universe:</strong> AI can find meaningful order in music that we might miss.</div></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Slide 12: Thank You -->
+    <div id="slide-12" class="slide text-center">
+        <div class="slide-content">
+            <h2 class="text-6xl font-black">Thank You for Watching</h2>
+            <div class="mt-12 text-lg text-gray-400">
+                <p><strong class="text-gray-200">Data Sources:</strong></p>
+                <ul class="mt-2 text-center max-w-4xl mx-auto space-y-1">
+                    <li>• <strong>15,000 Music Tracks - 19 Genres (w/ Spotify Data)</strong> (Used for Act 1)</li>
+                    <li>• <strong>Top 50 Spotify Songs - 2019</strong> (Used for Act 2)</li>
+                    <li>• <strong>Spotify Dataset 1921-2020, 160k+ Tracks</strong> (Used for Acts 3, 4)</li>
+                </ul>
+                <p class="mt-4"><strong class="text-gray-200">Tools:</strong> Python (Pandas, Plotly, Dash, Sklearn)</p>
+                <p class="mt-8 text-sm text-gray-500 italic">More details: <a href="https://zoe033.github.io/SD6105_music_visualization_WU/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">https://zoe033.github.io/SD6105_music_visualization_WU/</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="slide-counter" id="slideCounter">1 / 12</div>
+    <button id="prevBtn" class="nav-button"><!-- ... svg ... --></button>
+    <button id="nextBtn" class="nav-button"><!-- ... svg ... --></button>
+    
+    <!-- Gemini Modal -->
+    <div id="geminiModal">
+        <div class="modal-content">
+            <button id="closeModalBtn" class="close-btn">&times;</button>
+            <h3 id="modalTitle" class="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Gemini's Insights</h3>
+            <div id="modalBody">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Simple Slideshow Logic ---
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (index < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = index;
+            }
+
+            slides.forEach((slide, i) => {
+                if (i === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            prevBtn.style.display = currentSlide === 0 ? 'none' : 'flex';
+            nextBtn.style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+        }
+
+        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+            else if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        });
+        showSlide(0);
+
+        // --- Gemini API Integration ---
+        const modal = document.getElementById('geminiModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        const apiKey = ""; // IMPORTANT: When the API key is an empty string, the sample will use a proxy to call the API.
+
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        async function callGeminiAPI(systemPrompt, userQuery) {
+            modalBody.innerHTML = '<div class="loader"></div>';
+            modal.classList.add('show');
+            
+            try {
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    // Simple markdown to HTML conversion for lists
+                    const htmlText = text
+                        .replace(/\n\*/g, '<br>•')
+                        .replace(/\n/g, '<br>');
+                    modalBody.innerHTML = `<div class="text-gray-300 leading-relaxed">${htmlText}</div>`;
+                } else {
+                    throw new Error("No content received from API.");
+                }
+
+            } catch (error) {
+                console.error("Gemini API call failed:", error);
+                modalBody.innerHTML = `<p class="text-red-400">Sorry, something went wrong. Please check the console for details.</p>`;
+            }
+        }
+        
+        // --- Modal Controls ---
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+             if (e.key === "Escape" && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // --- Button Event Listeners ---
+        document.getElementById('hitRecipeBtn').addEventListener('click', () => {
+            modalTitle.textContent = "Gemini's Hit Song Recipe";
+            const systemPrompt = "You are a witty music producer and analyst. Your goal is to create a short, catchy 'recipe' for a hit song based on specific data-driven insights.";
+            const userQuery = "Based on the finding that modern hits are engineered to have high 'Loudness' and 'Danceability', create a short, step-by-step recipe for a 2020s chart-topper. Use a fun, recipe-like format with bolded titles for each step.";
+            callGeminiAPI(systemPrompt, userQuery);
+        });
+
+        document.getElementById('galaxyNameBtn').addEventListener('click', () => {
+            modalTitle.textContent = "Gemini's 'Galaxy' Namer";
+            const systemPrompt = "You are a creative astronomer and music lover who names newly discovered galaxies. Your task is to generate creative, evocative names for clusters of songs found by an AI.";
+            const userQuery = "An AI has analyzed thousands of songs and found distinct clusters. One major cluster is defined by 'High-Acousticness', and another is defined by 'High-Energy/Dance'. Generate 5 creative, space-themed names for each of these two 'music galaxies', with clear headings for each category.";
+            callGeminiAPI(systemPrompt, userQuery);
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
